@@ -1,0 +1,58 @@
+-- SQLBook: Markup
+# Final Project
+-- SQLBook: Markup
+#### Database Creation and Use
+-- SQLBook: Code
+-- Active: 1787030903737@@127.0.0.1@3306@univarsity_management_system
+CREATE DATABASE Univarsity_management_System;
+-- SQLBook: Code
+-- Active: 1787030903737@@127.0.0.1@3306@univarsity_management_system
+-- Active: 1787030903737@@127.0.0.1@3306@final_db
+USE Univarsity_management_System;
+-- SQLBook: Markup
+#### Creation of Student Table
+-- SQLBook: Code
+CREATE TABLE Student(
+    Student_id INT PRIMARY KEY,
+    First_name VARCHAR(50),
+    Last_name VARCHAR(50),
+    Email VARCHAR(50),
+    Birth_date DATE,
+    Enrollment_date Date
+);
+-- SQLBook: Markup
+#### Creation of Courses Table
+-- SQLBook: Code
+CREATE TABLE Courses(
+    Course_id INT PRIMARY KEY,
+    Course_name VARCHAR(50),
+    Department_id INT,
+    Credits INT
+);
+-- SQLBook: Markup
+#### Creation Of Instructors Table
+-- SQLBook: Code
+CREATE TABLE Instructors(
+    Instructor_id INT PRIMARY KEY,
+    First_name VARCHAR(50),
+    Last_name VARCHAR(50),
+    Email VARCHAR(50),
+    Department_id INT
+);
+-- SQLBook: Markup
+#### Creation of Enrollments Table
+-- SQLBook: Code
+CREATE TABLE Enrollments(
+    Enrollment_id INT PRIMARY KEY,
+    Student_id INT,
+    Course_id INT,
+    Enrollment_date Date
+);
+-- SQLBook: Markup
+#### Creation of Department Table
+-- SQLBook: Code
+CREATE TABLE Department(
+    Department_id INT PRIMARY KEY,
+    Department_name VARCHAR(50)
+);
+-- SQLBook: Markup
