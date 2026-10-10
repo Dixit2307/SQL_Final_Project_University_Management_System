@@ -1,0 +1,320 @@
+-- SQLBook: Markup
+# Final Project
+-- SQLBook: Markup
+#### Database Creation and Use
+-- SQLBook: Code
+-- Active: 1787030903737@@127.0.0.1@3306@univarsity_management_system
+CREATE DATABASE IF NOT EXISTS Univarsity_management_System;
+
+-- SQLBook: Code
+-- Active: 1787030903737@@127.0.0.1@3306@univarsity_management_syste
+USE Univarsity_management_System;
+-- SQLBook: Markup
+#### Creation of Department Table
+-- SQLBook: Code
+CREATE TABLE Department(
+    Department_id INT PRIMARY KEY,
+    Department_name VARCHAR(50)
+);
+-- SQLBook: Markup
+#### Creation of Student Table
+-- SQLBook: Code
+CREATE TABLE Student(
+    Student_id INT PRIMARY KEY,
+    First_name VARCHAR(50) NOT NULL,
+    Last_name VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) ,
+    Birth_date DATE,
+    Enrollment_date DATE
+);
+-- SQLBook: Markup
+#### Creation of Courses Table
+-- SQLBook: Code
+CREATE TABLE Courses(
+    Course_id INT PRIMARY KEY,
+    Course_name VARCHAR(100) NOT NULL,
+    Department_id INT,
+    Credits INT,
+    FOREIGN KEY (Department_id) REFERENCES Department(Department_id) ON DELETE CASCADE
+);
+-- SQLBook: Markup
+#### Creation Of Instructors Table
+-- SQLBook: Code
+CREATE TABLE Instructors(
+    Instructor_id INT PRIMARY KEY,
+    First_name VARCHAR(50) NOT NULL,
+    Last_name VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    Department_id INT,
+    FOREIGN KEY (Department_id) REFERENCES Department(Department_id) ON DELETE SET NULL
+);
+-- SQLBook: Markup
+#### Creation of Enrollments Table
+-- SQLBook: Code
+CREATE TABLE Enrollments(
+    Enrollment_id INT PRIMARY KEY,
+    Student_id INT NOT NULL,
+    Course_id INT NOT NULL,
+    Enrollment_date DATE NOT NULL,
+    Grade VARCHAR(2) DEFAULT NULL,
+    FOREIGN KEY (Student_id) REFERENCES Student(Student_id) ON DELETE CASCADE,
+    FOREIGN KEY (Course_id) REFERENCES Courses(Course_id) ON DELETE CASCADE
+);
+-- SQLBook: Markup
+### Insert Data Into The Tables
+
+-- SQLBook: Code
+INSERT INTO Department (Department_id, Department_name) VALUES
+(10, 'Computer Science'),
+(11, 'Information Technology'),
+(12, 'Data Science & AI'),
+(13, 'Mechanical Engineering'),
+(14, 'Civil Engineering'),
+(15, 'Electrical Engineering'),
+(16, 'Electronics & Communication'),
+(17, 'Biotechnology'),
+(18, 'Chemical Engineering'),
+(19, 'Aerospace Engineering'),
+(20, 'Mathematics & Statistics'),
+(21, 'Physics'),
+(22, 'Business Administration'),
+(23, 'Economics'),
+(24, 'Humanities & Social Sciences');
+-- SQLBook: Code
+INSERT INTO Instructors (Instructor_id, First_name, Last_name, Email, Department_id) VALUES
+(201, 'Rajesh', 'Sharma', 'rajesh.sharma@univ.edu', 10),
+(202, 'Pooja', 'Mehta', 'pooja.mehta@univ.edu', 11),
+(203, 'Amit', 'Patel', 'amit.patel@univ.edu', 12),
+(204, 'Sunil', 'Verma', 'sunil.verma@univ.edu', 13),
+(205, 'Neha', 'Kapoor', 'neha.kapoor@univ.edu', 14),
+(206, 'Vikas', 'Gupta', 'vikas.gupta@univ.edu', 15),
+(207, 'Anjali', 'Nair', 'anjali.nair@univ.edu', 16),
+(208, 'Sanjay', 'Rao', 'sanjay.rao@univ.edu', 17),
+(209, 'Deepa', 'Iyer', 'deepa.iyer@univ.edu', 18),
+(210, 'Manoj', 'Tiwari', 'manoj.tiwari@univ.edu', 19),
+(211, 'Kavita', 'Joshi', 'kavita.joshi@univ.edu', 20),
+(212, 'Arun', 'Pillai', 'arun.pillai@univ.edu', 21),
+(213, 'Bhavna', 'Deshmukh', 'bhavna.deshmukh@univ.edu', 22),
+(214, 'Rakesh', 'Choudhary', 'rakesh.choudhary@univ.edu', 23),
+(215, 'Meera', 'Kulkarni', 'meera.kulkarni@univ.edu', 24);
+-- SQLBook: Code
+INSERT INTO Courses (Course_id, Course_name, Department_id, Credits) VALUES
+(301, 'Database Management Systems', 10, 4),
+(302, 'Data Structures and Algorithms', 10, 4),
+(303, 'Web Development Technologies', 11, 3),
+(304, 'Machine Learning Fundamentals', 12, 4),
+(305, 'Deep Learning Systems', 12, 3),
+(306, 'Thermodynamics', 13, 4),
+(307, 'Structural Analysis', 14, 3),
+(308, 'Circuit Theory', 15, 4),
+(309, 'Digital Signal Processing', 16, 3),
+(310, 'Cell Biology & Genetics', 17, 3),
+(311, 'Chemical Reaction Engineering', 18, 4),
+(312, 'Aerodynamics', 19, 4),
+(313, 'Applied Linear Algebra', 20, 3),
+(314, 'Quantum Mechanics Basics', 21, 3),
+(315, 'Principles of Management', 22, 2);
+-- SQLBook: Code
+INSERT INTO Student (Student_id, First_name, Last_name, Email, Birth_date, Enrollment_date) VALUES
+(1001, 'Aarav', 'Shah', 'aarav.shah@gmail.com', '2004-03-12', '2024-07-15'),
+(1002, 'Diya', 'Patel', 'diya.patel@gmail.com', '2003-11-20', '2023-07-10'),
+(1003, 'Rohan', 'Deshmukh', 'rohan.d@gmail.com', '2005-01-08', '2025-01-12'),
+(1004, 'Ananya', 'Iyer', 'ananya.iyer@gmail.com', '2004-08-25', '2024-07-15'),
+(1005, 'Kabir', 'Joshi', 'kabir.joshi@gmail.com', '2003-05-30', '2023-07-10'),
+(1006, 'Ishaan', 'Malhotra', 'ishaan.m@gmail.com', '2004-09-14', '2024-07-15'),
+(1007, 'Tanvi', 'Bhatia', 'tanvi.bhatia@gmail.com', '2005-02-18', '2025-01-12'),
+(1008, 'Aditya', 'Kumar', 'aditya.k@gmail.com', '2003-12-05', '2023-07-10'),
+(1009, 'Sneha', 'Reddy', 'sneha.reddy@gmail.com', '2004-04-22', '2024-07-15'),
+(1010, 'Yash', 'Singhania', 'yash.s@gmail.com', '2005-06-11', '2025-01-12'),
+(1011, 'Priya', 'Chauhan', 'priya.c@gmail.com', '2003-10-09', '2023-07-10'),
+(1012, 'Harsh', 'Vardhan', 'harsh.v@gmail.com', '2004-01-17', '2024-07-15'),
+(1013, 'Riya', 'Sen', 'riya.sen@gmail.com', '2005-07-29', '2025-01-12'),
+(1014, 'Manish', 'Tiwari', 'manish.t@gmail.com', '2003-08-03', '2023-07-10'),
+(1015, 'Kavya', 'Menon', 'kavya.menon@gmail.com', '2004-11-23', '2024-07-15');
+-- SQLBook: Code
+INSERT INTO Enrollments (Enrollment_id, Student_id, Course_id, Enrollment_date) VALUES
+(501, 1001, 301, '2024-07-20'),
+(502, 1001, 302, '2024-07-21'),
+(503, 1002, 301, '2023-07-15'),
+(504, 1003, 304, '2025-01-15'),
+(505, 1004, 303, '2024-07-22'),
+(506, 1004, 305, '2024-07-23'),
+(507, 1005, 306, '2023-07-18'),
+(508, 1006, 307, '2024-07-20'),
+(509, 1007, 308, '2025-01-16'),
+(510, 1008, 309, '2023-07-19'),
+(511, 1009, 310, '2024-07-25'),
+(512, 1010, 311, '2025-01-18'),
+(513, 1011, 312, '2023-07-20'),
+(514, 1012, 313, '2024-07-26'),
+(515, 1013, 314, '2025-01-20');
+-- SQLBook: Markup
+### Q - Retrive Students Who enrolles After 2022
+-- SQLBook: Code
+-- Active: 1787030903737@@127.0.0.1@3306@univarsity_management_system
+SELECT * FROM Student
+WHERE Enrollment_date > '2022-12-31';
+-- SQLBook: Markup
+### Q - Retrive Course Offerded by the Mathematics department With Limite of 5 courses
+-- SQLBook: Code
+-- Active: 1787030903737@@127.0.0.1@3306@univarsity_management_system
+SELECT 
+    c.Course_id,
+    c.Course_name,
+    c.Credits,
+    d.Department_name
+FROM Courses c
+JOIN Department d ON c.Department_id = d.Department_id
+WHERE d.Department_name LIKE '%Mathematics%'
+LIMIT 5;
+
+-- SQLBook: Markup
+### Q - Get the number of students enrolled in each course, filtering with a limit of 5 courses
+-- SQLBook: Code
+SELECT 
+    c.Course_id,
+    c.Course_name,
+    COUNT(e.Student_id) AS Total_Students
+FROM Courses c 
+LEFT JOIN Enrollments e ON c.Course_id = e.Course_id
+GROUP BY c.Course_id, c.Course_name
+ORDER BY Total_Students DESC
+LIMIT 5;
+-- SQLBook: Markup
+#### Find students who are  enrolled in both Introduction to SQL and Data Structures
+-- SQLBook: Code
+SELECT 
+    s.Student_id,
+    s.First_name,
+    s.Last_name,
+    s.Email
+FROM Student s
+JOIN Enrollments e ON s.Student_id = e.Student_id
+JOIN Courses c ON e.Course_id = c.Course_id
+WHERE c.Course_name IN ('Structural Analysis', 'Database Management Systems')
+GROUP BY s.Student_id, s.First_name, s.Last_name, s.Email
+HAVING COUNT(DISTINCT c.Course_name) = 2;
+-- SQLBook: Markup
+#### Q Find students who are enrolled in Introduction to SQL or Data Structures
+-- SQLBook: Code
+SELECT DISTINCT
+    s.Student_id,
+    s.First_name,
+    s.Last_name,
+    s.Email
+FROM Student s
+JOIN Enrollments e ON s.Student_id = e.Student_id
+JOIN Courses c ON e.Course_id = c.Course_id
+WHERE c.Course_name IN ('Structural Analysis', 'Database Management Systems');
+-- SQLBook: Markup
+#### Q - Calculate the average number of credits for all courses
+-- SQLBook: Code
+SELECT 
+    AVG(Credits) AS Average_Credits
+FROM Courses;
+-- SQLBook: Markup
+#### Q - Find the maximum salary of instructors in Computer Science Department
+-- SQLBook: Code
+
+-- SQLBook: Markup
+#### Q - Count the number of students enrolled in each department
+-- SQLBook: Code
+SELECT 
+    d.Department_id,
+    d.Department_name,
+    COUNT(DISTINCT e.Student_id) AS Total_Students
+FROM Department d
+LEFT JOIN Courses c ON d.Department_id = c.Department_id
+LEFT JOIN Enrollments e ON c.Course_id = e.Course_id
+GROUP BY d.Department_id, d.Department_name
+ORDER BY Total_Students DESC;
+    
+-- SQLBook: Markup
+#### Q - INNER JOIN : Retrieve students and their corresponding courses
+-- SQLBook: Code
+SELECT 
+    s.Student_id,
+    CONCAT(s.First_name, ' ', s.Last_name) AS Student_Name,
+    s.Email,
+    c.Course_id,
+    c.Course_name,
+    c.Credits,
+    e.Enrollment_date
+FROM Student s
+INNER JOIN Enrollments e ON s.Student_id = e.Student_id
+INNER JOIN Courses c ON e.Course_id = c.Course_id
+ORDER BY s.Student_id, c.Course_id;
+-- SQLBook: Markup
+#### Q - LEFT JOIN : Retrieve all students and their corresponding courses , if any
+-- SQLBook: Code
+SELECT 
+    s.Student_id,
+    CONCAT(s.First_name, ' ', s.Last_name) AS Student_Name,
+    s.Email,
+    c.Course_id,
+    c.Course_name,
+    c.Credits,
+    e.Enrollment_date
+FROM Student s
+LEFT JOIN Enrollments e ON s.Student_id = e.Student_id
+LEFT JOIN Courses c ON e.Course_id = c.Course_id
+ORDER BY s.Student_id, c.Course_id;
+-- SQLBook: Markup
+#### Q - Subquery : Find students enrolled in courses that have more than 10 students
+-- SQLBook: Code
+SELECT DISTINCT
+    s.Student_id,
+    CONCAT(s.First_name, ' ', s.Last_name) AS Student_Name,
+    s.Email
+FROM Student s
+JOIN Enrollments e ON s.Student_id = e.Student_id
+WHERE e.Course_id IN (
+    SELECT Course_id
+    FROM Enrollments
+    GROUP BY Course_id
+    HAVING COUNT(Student_id) > 1
+);
+-- SQLBook: Markup
+#### Q - Extract the year from the EnrollmentDate of students
+-- SQLBook: Code
+
+SELECT 
+    Student_id,
+    First_name,
+    Last_name,
+    Enrollment_date,
+    YEAR(Enrollment_date) AS Enrollment_Year
+FROM Student;
+-- SQLBook: Markup
+#### Q - Concatenate the instructor's first and last name
+-- SQLBook: Code
+SELECT 
+    Instructor_id,
+    CONCAT(First_name, ' ', Last_name) AS Full_Name,
+    Email,
+    Department_id
+FROM Instructors;
+-- SQLBook: Markup
+#### Q - Calculate the running total of Students enrolled in courses
+-- SQLBook: Code
+SELECT 
+    e.Enrollment_id,
+    e.Enrollment_date,
+    e.Student_id,
+    e.Course_id,
+    COUNT(e.Student_id) OVER (ORDER BY e.Enrollment_date, e.Enrollment_id) AS Running_Total_Students
+FROM Enrollments e;
+-- SQLBook: Markup
+#### Q - Label Students as 'Senior' or 'Junior' based on their year of enrollment
+(If the enrollment date is more than 4 years from the currentdate, put the label "Senior" otherwise "Junior")
+-- SQLBook: Code
+SELECT 
+    Student_id,
+    First_name,
+    Last_name,
+    Enrollment_date,
+    CASE 
+        WHEN Enrollment_date < DATE_SUB(CURDATE(), INTERVAL 4 YEAR) THEN 'Senior'
+        ELSE 'Junior'
+    END AS Student_Status
+FROM Student;
